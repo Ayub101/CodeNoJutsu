@@ -1,4 +1,5 @@
 import pathlib
+import shutil
 import subprocess
 from typing import Tuple
 
@@ -57,6 +58,15 @@ def run_cmd(cmd: str, cwd: str = None, timeout: int = 30) -> Tuple[int, str, str
     return res.returncode, res.stdout, res.stderr
 
 
-def init_project_root():
+# def init_project_root():
+#     PROJECT_ROOT.mkdir(parents=True, exist_ok=True)
+#     return str(PROJECT_ROOT)
+def init_project_root(clear: bool = True):
+    """
+    Initializes the project root folder.
+    If clear=True and the folder already exists, it will be deleted first.
+    """
+    if PROJECT_ROOT.exists() and clear:
+        shutil.rmtree(PROJECT_ROOT)  # Delete the entire directory
     PROJECT_ROOT.mkdir(parents=True, exist_ok=True)
     return str(PROJECT_ROOT)
