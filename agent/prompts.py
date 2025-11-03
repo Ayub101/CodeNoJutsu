@@ -40,5 +40,5 @@ Always:
 - Implement the FULL file content, integrating with other modules.
 - Maintain consistent naming of variables, functions, and imports.
 - When a module is imported from another file, ensure it exists and is implemented as described.
-    """
+ """
     return CODER_SYSTEM_PROMPT

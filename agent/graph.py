@@ -10,8 +10,9 @@ from agent.tools import write_file, read_file, get_current_directory, list_files
 _ = load_dotenv()
 # set_debug(True)
 # set_verbose(True)
-
+coder_tools = [read_file, write_file, list_files, get_current_directory]
 llm = ChatGroq(model="openai/gpt-oss-120b")
+llm = llm.bind_tools(coder_tools)
 
 def planner_agent(state: dict) -> dict:
     """Converts user prompt into a structured Plan."""
@@ -56,7 +57,7 @@ def coder_agent(state: dict) -> dict:
         "Use write_file(path, content) to save your changes."
     )
 
-    coder_tools = [read_file, write_file, list_files, get_current_directory]
+    
     react_agent = create_react_agent(llm, coder_tools)
 
     react_agent.invoke({"messages": [{"role": "system", "content": system_prompt},
